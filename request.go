@@ -60,3 +60,11 @@ type ImageEditRequest struct {
 	ResponseFormat ImageResponseFormat `json:"response_format,omitempty"`
 	User           string              `json:"user,omitempty"`
 }
+
+type ImageVariationRequest struct {
+	Image          string              `json:"image"`
+	N              int                 `json:"n,omitempty"`
+	Size           ImageSize           `json:"size,omitempty"`
+	ResponseFormat ImageResponseFormat `json:"response_format,omitempty"`
+	User           string              `json:"user,omitempty"`
+}

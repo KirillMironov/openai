@@ -78,3 +78,11 @@ type ImageEditResponse struct {
 		B64JSON string `json:"b64_json"`
 	}
 }
+
+type ImageVariationResponse struct {
+	Created int `json:"created"`
+	Data    []struct {
+		URL     string `json:"url"`
+		B64JSON string `json:"b64_json"`
+	}
+}

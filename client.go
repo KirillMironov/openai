@@ -60,6 +60,11 @@ func (c *Client) ImageEdit(request ImageEditRequest) (ImageEditResponse, error) 
 	return makeRequest[ImageEditResponse](c, http.MethodPost, "/images/edits", request)
 }
 
+// ImageVariation creates a variation of a given image.
+func (c *Client) ImageVariation(request ImageVariationRequest) (ImageVariationResponse, error) {
+	return makeRequest[ImageVariationResponse](c, http.MethodPost, "/images/variations", request)
+}
+
 func makeRequest[T any](client *Client, method, path string, body any) (T, error) {
 	var target T
 
