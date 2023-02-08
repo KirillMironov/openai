@@ -68,7 +68,7 @@ type ImageResponse struct {
 	Data    []struct {
 		URL     string `json:"url"`
 		B64JSON string `json:"b64_json"`
-	}
+	} `json:"data"`
 }
 
 type ImageEditResponse struct {
@@ -76,7 +76,7 @@ type ImageEditResponse struct {
 	Data    []struct {
 		URL     string `json:"url"`
 		B64JSON string `json:"b64_json"`
-	}
+	} `json:"data"`
 }
 
 type ImageVariationResponse struct {
@@ -84,5 +84,19 @@ type ImageVariationResponse struct {
 	Data    []struct {
 		URL     string `json:"url"`
 		B64JSON string `json:"b64_json"`
-	}
+	} `json:"data"`
+}
+
+type EmbeddingResponse struct {
+	Object string `json:"object"`
+	Model  string `json:"model"`
+	Data   []struct {
+		Index     int       `json:"index"`
+		Object    string    `json:"object"`
+		Embedding []float64 `json:"embedding"`
+	} `json:"data"`
+	Usage struct {
+		PromptTokens int `json:"prompt_tokens"`
+		TotalTokens  int `json:"total_tokens"`
+	} `json:"usage"`
 }

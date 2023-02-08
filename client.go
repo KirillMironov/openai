@@ -65,6 +65,10 @@ func (c *Client) ImageVariation(request ImageVariationRequest) (ImageVariationRe
 	return makeRequest[ImageVariationResponse](c, http.MethodPost, "/images/variations", request)
 }
 
+func (c *Client) Embedding(request EmbeddingRequest) (EmbeddingResponse, error) {
+	return makeRequest[EmbeddingResponse](c, http.MethodPost, "/embeddings", request)
+}
+
 func makeRequest[T any](client *Client, method, path string, body any) (T, error) {
 	var target T
 

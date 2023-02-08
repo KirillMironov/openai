@@ -68,3 +68,9 @@ type ImageVariationRequest struct {
 	ResponseFormat ImageResponseFormat `json:"response_format,omitempty"`
 	User           string              `json:"user,omitempty"`
 }
+
+type EmbeddingRequest struct {
+	Model string   `json:"model"`
+	Input []string `json:"input"`
+	User  string   `json:"user,omitempty"`
+}
