@@ -55,6 +55,11 @@ func (c *Client) Image(request ImageRequest) (ImageResponse, error) {
 	return makeRequest[ImageResponse](c, http.MethodPost, "/images/generations", request)
 }
 
+// ImageEdit creates an edited or extended image given an original image and a prompt.
+func (c *Client) ImageEdit(request ImageEditRequest) (ImageEditResponse, error) {
+	return makeRequest[ImageEditResponse](c, http.MethodPost, "/images/edits", request)
+}
+
 func makeRequest[T any](client *Client, method, path string, body any) (T, error) {
 	var target T
 

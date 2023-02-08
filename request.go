@@ -50,3 +50,13 @@ type ImageRequest struct {
 	ResponseFormat ImageResponseFormat `json:"response_format,omitempty"`
 	User           string              `json:"user,omitempty"`
 }
+
+type ImageEditRequest struct {
+	Image          string              `json:"image"`
+	Mask           string              `json:"mask,omitempty"`
+	Prompt         string              `json:"prompt"`
+	N              int                 `json:"n,omitempty"`
+	Size           ImageSize           `json:"size,omitempty"`
+	ResponseFormat ImageResponseFormat `json:"response_format,omitempty"`
+	User           string              `json:"user,omitempty"`
+}
