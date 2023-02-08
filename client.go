@@ -3,6 +3,8 @@ package openai
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
+	"io"
 	"net/http"
 )
 
@@ -36,8 +38,8 @@ func (c *Client) Models() (ModelsResponse, error) {
 }
 
 // Model retrieves a model instance, providing basic information about the model such as the owner and permissioning.
-func (c *Client) Model(model string) (ModelResponse, error) {
-	return makeRequest[ModelResponse](c, http.MethodGet, "/models/"+model, nil)
+func (c *Client) Model(id string) (ModelResponse, error) {
+	return makeRequest[ModelResponse](c, http.MethodGet, "/models/"+id, nil)
 }
 
 // Completion creates a completion for the provided prompt and parameters.
@@ -81,15 +83,22 @@ func (c *Client) UploadFile(request UploadFileRequest) (UploadFileResponse, erro
 	return makeRequest[UploadFileResponse](c, http.MethodPost, "/files", request)
 }
 
-func makeRequest[T any](client *Client, method, path string, body any) (T, error) {
-	var target T
+func makeRequest[T any](client *Client, method, path string, payload any) (T, error) {
+	var (
+		target T
+		body   io.Reader
+	)
 
-	buf := new(bytes.Buffer)
-	if err := json.NewEncoder(buf).Encode(body); err != nil {
-		return target, err
+	if payload != nil {
+		buf := new(bytes.Buffer)
+		if err := json.NewEncoder(buf).Encode(body); err != nil {
+			return target, err
+		}
+
+		body = buf
 	}
 
-	req, err := http.NewRequest(method, client.baseURL+path, buf)
+	req, err := http.NewRequest(method, client.baseURL+path, body)
 	if err != nil {
 		return target, err
 	}
@@ -106,6 +115,30 @@ func makeRequest[T any](client *Client, method, path string, body any) (T, error
 		return target, err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		var openaiApiResponse struct {
+			Error struct {
+				Message string `json:"message"`
+				Type    string `json:"type"`
+			} `json:"error"`
+		}
+
+		respData, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return target, err
+		}
+
+		if err = json.Unmarshal(respData, &openaiApiResponse); err != nil {
+			return target, errors.New(string(respData))
+		}
+
+		return target, Error{
+			StatusCode: resp.StatusCode,
+			Message:    openaiApiResponse.Error.Message,
+			Type:       openaiApiResponse.Error.Type,
+		}
+	}
 
 	return target, json.NewDecoder(resp.Body).Decode(&target)
 }
