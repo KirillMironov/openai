@@ -45,6 +45,10 @@ func (c *Client) Completion(request CompletionRequest) (CompletionResponse, erro
 	return makeRequest[CompletionResponse](c, http.MethodPost, "/completions", request)
 }
 
+func (c *Client) Edit(request EditRequest) (EditResponse, error) {
+	return makeRequest[EditResponse](c, http.MethodPost, "/edits", request)
+}
+
 func makeRequest[T any](client *Client, method, path string, body any) (T, error) {
 	var target T
 

@@ -18,3 +18,12 @@ type CompletionRequest struct {
 	LogitBias        map[string]int `json:"logit_bias,omitempty"`
 	User             string         `json:"user,omitempty"`
 }
+
+type EditRequest struct {
+	Model       string `json:"model"`
+	Input       string `json:"input,omitempty"`
+	Instruction string `json:"instruction"`
+	N           int    `json:"n,omitempty"`
+	Temperature int    `json:"temperature,omitempty"`
+	TopP        int    `json:"top_p,omitempty"`
+}
