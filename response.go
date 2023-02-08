@@ -114,3 +114,14 @@ type FilesResponse struct {
 		StatusDetails []string `json:"status_details"`
 	} `json:"data"`
 }
+
+type UploadFileResponse struct {
+	ID            string   `json:"id"`
+	Object        string   `json:"object"`
+	Bytes         int      `json:"bytes"`
+	CreatedAt     int      `json:"created_at"`
+	Filename      string   `json:"filename"`
+	Purpose       string   `json:"purpose"`
+	Status        string   `json:"status"`
+	StatusDetails []string `json:"status_details"`
+}

@@ -74,3 +74,8 @@ type EmbeddingRequest struct {
 	Input []string `json:"input"`
 	User  string   `json:"user,omitempty"`
 }
+
+type UploadFileRequest struct {
+	File    string `json:"file"`
+	Purpose string `json:"purpose"`
+}

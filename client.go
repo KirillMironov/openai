@@ -75,6 +75,12 @@ func (c *Client) Files() (FilesResponse, error) {
 	return makeRequest[FilesResponse](c, http.MethodGet, "/files", nil)
 }
 
+// UploadFile upload a file that contains document(s) to be used across various endpoints/features.
+// Currently, the size of all the files uploaded by one organization can be up to 1 GB.
+func (c *Client) UploadFile(request UploadFileRequest) (UploadFileResponse, error) {
+	return makeRequest[UploadFileResponse](c, http.MethodPost, "/files", request)
+}
+
 func makeRequest[T any](client *Client, method, path string, body any) (T, error) {
 	var target T
 
