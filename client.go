@@ -91,7 +91,7 @@ func makeRequest[T any](client *Client, method, path string, payload any) (T, er
 
 	if payload != nil {
 		buf := new(bytes.Buffer)
-		if err := json.NewEncoder(buf).Encode(body); err != nil {
+		if err := json.NewEncoder(buf).Encode(payload); err != nil {
 			return target, err
 		}
 
