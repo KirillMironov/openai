@@ -45,8 +45,14 @@ func (c *Client) Completion(request CompletionRequest) (CompletionResponse, erro
 	return makeRequest[CompletionResponse](c, http.MethodPost, "/completions", request)
 }
 
+// Edit creates a new edit for the provided input, instruction, and parameters.
 func (c *Client) Edit(request EditRequest) (EditResponse, error) {
 	return makeRequest[EditResponse](c, http.MethodPost, "/edits", request)
+}
+
+// Image given a prompt and/or an input image, the model will generate a new image.
+func (c *Client) Image(request ImageRequest) (ImageResponse, error) {
+	return makeRequest[ImageResponse](c, http.MethodPost, "/images/generations", request)
 }
 
 func makeRequest[T any](client *Client, method, path string, body any) (T, error) {

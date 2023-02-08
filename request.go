@@ -27,3 +27,26 @@ type EditRequest struct {
 	Temperature int    `json:"temperature,omitempty"`
 	TopP        int    `json:"top_p,omitempty"`
 }
+
+type ImageSize string
+
+const (
+	ImageSize256x256   ImageSize = "256x256"
+	ImageSize512x512   ImageSize = "512x512"
+	ImageSize1024x1024 ImageSize = "1024x1024"
+)
+
+type ImageResponseFormat string
+
+const (
+	ImageResponseFormatURL     ImageResponseFormat = "url"
+	ImageResponseFormatB64JSON ImageResponseFormat = "b64_json"
+)
+
+type ImageRequest struct {
+	Prompt         string              `json:"prompt"`
+	N              int                 `json:"n,omitempty"`
+	Size           ImageSize           `json:"size,omitempty"`
+	ResponseFormat ImageResponseFormat `json:"response_format,omitempty"`
+	User           string              `json:"user,omitempty"`
+}

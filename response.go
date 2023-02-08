@@ -62,3 +62,11 @@ type EditResponse struct {
 		TotalTokens      int `json:"total_tokens"`
 	} `json:"usage"`
 }
+
+type ImageResponse struct {
+	Created int `json:"created"`
+	Data    []struct {
+		URL     string `json:"url"`
+		B64JSON string `json:"b64_json"`
+	}
+}
