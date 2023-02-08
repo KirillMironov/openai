@@ -65,8 +65,14 @@ func (c *Client) ImageVariation(request ImageVariationRequest) (ImageVariationRe
 	return makeRequest[ImageVariationResponse](c, http.MethodPost, "/images/variations", request)
 }
 
+// Embedding creates an embedding vector representing the input text.
 func (c *Client) Embedding(request EmbeddingRequest) (EmbeddingResponse, error) {
 	return makeRequest[EmbeddingResponse](c, http.MethodPost, "/embeddings", request)
+}
+
+// Files returns a list of files that belong to the user's organization.
+func (c *Client) Files() (FilesResponse, error) {
+	return makeRequest[FilesResponse](c, http.MethodGet, "/files", nil)
 }
 
 func makeRequest[T any](client *Client, method, path string, body any) (T, error) {
