@@ -3,18 +3,24 @@ package openai
 type ModelsResponse struct {
 	Object string `json:"object"`
 	Data   []struct {
-		ID      string `json:"id"`
-		Object  string `json:"object"`
-		Created int    `json:"created"`
-		OwnedBy string `json:"owned_by"`
+		ID         string           `json:"id"`
+		Object     string           `json:"object"`
+		Created    int              `json:"created"`
+		OwnedBy    string           `json:"owned_by"`
+		Permission []map[string]any `json:"permission"`
+		Root       string           `json:"root"`
+		Parent     string           `json:"parent"`
 	} `json:"data"`
 }
 
 type ModelResponse struct {
-	ID      string `json:"id"`
-	Object  string `json:"object"`
-	Created int    `json:"created"`
-	OwnedBy string `json:"owned_by"`
+	ID         string           `json:"id"`
+	Object     string           `json:"object"`
+	Created    int              `json:"created"`
+	OwnedBy    string           `json:"owned_by"`
+	Permission []map[string]any `json:"permission"`
+	Root       string           `json:"root"`
+	Parent     string           `json:"parent"`
 }
 
 type CompletionResponse struct {

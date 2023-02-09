@@ -116,17 +116,17 @@ func makeRequest[T any](client *Client, method, path string, payload any) (T, er
 	}
 	defer resp.Body.Close()
 
+	respData, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return target, err
+	}
+
 	if resp.StatusCode != http.StatusOK {
 		var openaiApiResponse struct {
 			Error struct {
 				Message string `json:"message"`
 				Type    string `json:"type"`
 			} `json:"error"`
-		}
-
-		respData, err := io.ReadAll(resp.Body)
-		if err != nil {
-			return target, err
 		}
 
 		if err = json.Unmarshal(respData, &openaiApiResponse); err != nil {
@@ -140,5 +140,5 @@ func makeRequest[T any](client *Client, method, path string, payload any) (T, er
 		}
 	}
 
-	return target, json.NewDecoder(resp.Body).Decode(&target)
+	return target, json.Unmarshal(respData, &target)
 }
