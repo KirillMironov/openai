@@ -33,7 +33,7 @@ type CompletionResponse struct {
 		Index    int    `json:"index"`
 		Logprobs struct {
 			Tokens        []string             `json:"tokens"`
-			TokenLogprobs []int                `json:"token_logprobs"`
+			TokenLogprobs []float64            `json:"token_logprobs"`
 			TopLogprobs   []map[string]float64 `json:"top_logprobs"`
 			TextOffset    []int                `json:"text_offset"`
 		} `json:"logprobs"`
