@@ -76,6 +76,24 @@ func TestClient_Edit(t *testing.T) {
 	}
 }
 
+func TestClient_Image(t *testing.T) {
+	t.Parallel()
+
+	client := newClient(t)
+
+	image, err := client.Image(ImageRequest{
+		Prompt: "This is a test",
+		Size:   ImageSize1024x1024,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(image.Data) != 1 {
+		t.Fatalf("expected 1 image, got %d", len(image.Data))
+	}
+}
+
 func newClient(t *testing.T) *Client {
 	t.Helper()
 
