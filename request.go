@@ -20,12 +20,12 @@ type CompletionRequest struct {
 }
 
 type EditRequest struct {
-	Model       string `json:"model"`
-	Input       string `json:"input,omitempty"`
-	Instruction string `json:"instruction"`
-	N           int    `json:"n,omitempty"`
-	Temperature int    `json:"temperature,omitempty"`
-	TopP        int    `json:"top_p,omitempty"`
+	Model       string  `json:"model"`
+	Input       string  `json:"input,omitempty"`
+	Instruction string  `json:"instruction"`
+	N           int     `json:"n,omitempty"`
+	Temperature float64 `json:"temperature,omitempty"`
+	TopP        float64 `json:"top_p,omitempty"`
 }
 
 type ImageSize string
