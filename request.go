@@ -2,10 +2,10 @@ package openai
 
 type CompletionRequest struct {
 	Model            string         `json:"model"`
-	Prompt           string         `json:"prompt,omitempty"`
+	Prompt           []string       `json:"prompt,omitempty"`
 	Suffix           string         `json:"suffix,omitempty"`
 	MaxTokens        int            `json:"max_tokens,omitempty"`
-	Temperature      int            `json:"temperature,omitempty"`
+	Temperature      float64        `json:"temperature,omitempty"`
 	TopP             int            `json:"top_p,omitempty"`
 	N                int            `json:"n,omitempty"`
 	Stream           bool           `json:"stream,omitempty"`
