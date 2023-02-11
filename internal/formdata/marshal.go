@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"mime/multipart"
-	"os"
 	"path/filepath"
 	"reflect"
 	"strconv"
@@ -13,6 +12,11 @@ import (
 )
 
 const formTag = "form"
+
+type File interface {
+	Name() string
+	io.Reader
+}
 
 func Marshal(value any) (data []byte, contentType string, err error) {
 	defer func() {
@@ -45,8 +49,8 @@ func Marshal(value any) (data []byte, contentType string, err error) {
 			tag = strings.ToLower(t.Field(i).Name)
 		}
 
-		if field.Type().String() == "*os.File" {
-			file := field.Interface().(*os.File)
+		if field.Type().Implements(reflect.TypeOf((*File)(nil)).Elem()) {
+			file := field.Interface().(File)
 
 			if file == nil {
 				continue

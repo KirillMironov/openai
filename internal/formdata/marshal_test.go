@@ -32,7 +32,7 @@ func TestMarshal(t *testing.T) {
 	example := form{
 		Name: "John",
 		Age:  0,
-		File: nil,
+		File: file,
 	}
 
 	data, contentType, err := Marshal(example)

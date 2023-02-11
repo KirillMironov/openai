@@ -1,6 +1,6 @@
 package openai
 
-import "os"
+import "github.com/KirillMironov/openai/internal/formdata"
 
 type CompletionRequest struct {
 	Model            string         `json:"model"`
@@ -54,8 +54,8 @@ type ImageRequest struct {
 }
 
 type ImageEditRequest struct {
-	Image          *os.File            `form:"image"`
-	Mask           *os.File            `form:"mask,omitempty"`
+	Image          formdata.File       `form:"image"`
+	Mask           formdata.File       `form:"mask,omitempty"`
 	Prompt         string              `form:"prompt"`
 	N              int                 `form:"n,omitempty"`
 	Size           ImageSize           `form:"size,omitempty"`
