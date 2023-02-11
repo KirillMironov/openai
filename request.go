@@ -1,5 +1,7 @@
 package openai
 
+import "os"
+
 type CompletionRequest struct {
 	Model            string         `json:"model"`
 	Prompt           []string       `json:"prompt,omitempty"`
@@ -52,13 +54,13 @@ type ImageRequest struct {
 }
 
 type ImageEditRequest struct {
-	Image          string              `json:"image"`
-	Mask           string              `json:"mask,omitempty"`
-	Prompt         string              `json:"prompt"`
-	N              int                 `json:"n,omitempty"`
-	Size           ImageSize           `json:"size,omitempty"`
-	ResponseFormat ImageResponseFormat `json:"response_format,omitempty"`
-	User           string              `json:"user,omitempty"`
+	Image          *os.File            `form:"image"`
+	Mask           *os.File            `form:"mask,omitempty"`
+	Prompt         string              `form:"prompt"`
+	N              int                 `form:"n,omitempty"`
+	Size           ImageSize           `form:"size,omitempty"`
+	ResponseFormat ImageResponseFormat `form:"response_format,omitempty"`
+	User           string              `form:"user,omitempty"`
 }
 
 type ImageVariationRequest struct {
