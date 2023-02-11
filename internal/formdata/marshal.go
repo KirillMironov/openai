@@ -50,11 +50,11 @@ func Marshal(value any) (data []byte, contentType string, err error) {
 		}
 
 		if field.Type().Implements(reflect.TypeOf((*File)(nil)).Elem()) {
-			file := field.Interface().(File)
-
-			if file == nil {
+			if field.IsNil() {
 				continue
 			}
+
+			file := field.Interface().(File)
 
 			filename := filepath.Base(file.Name())
 
