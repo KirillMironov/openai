@@ -43,6 +43,12 @@ func (c *Client) Model(id string) (ModelResponse, error) {
 	return makeJSONRequest[ModelResponse](c, http.MethodGet, "/models/"+id, nil)
 }
 
+// DeleteModel delete a fine-tuned model.
+// You must have the Owner role in your organization.
+func (c *Client) DeleteModel(id string) (DeleteModelResponse, error) {
+	return makeJSONRequest[DeleteModelResponse](c, http.MethodDelete, "/models/"+id, nil)
+}
+
 // Completion creates a completion for the provided prompt and parameters.
 func (c *Client) Completion(request CompletionRequest) (CompletionResponse, error) {
 	return makeJSONRequest[CompletionResponse](c, http.MethodPost, "/completions", request)
@@ -97,6 +103,31 @@ func (c *Client) File(id string) (FileResponse, error) {
 // FileContent returns the contents of the specified file.
 func (c *Client) FileContent(id string) (string, error) {
 	return makeJSONRequest[string](c, http.MethodGet, "/files/"+id+"/content", nil)
+}
+
+// CreateFineTune creates a job that fine-tunes a specified model from a given dataset.
+func (c *Client) CreateFineTune(request FineTuneRequest) (FineTune, error) {
+	return makeJSONRequest[FineTune](c, http.MethodPost, "/fine-tunes", request)
+}
+
+// FineTunes list your organization's fine-tuning jobs.
+func (c *Client) FineTunes() (FineTunesResponse, error) {
+	return makeJSONRequest[FineTunesResponse](c, http.MethodGet, "/fine-tunes", nil)
+}
+
+// FineTune gets info about the fine-tune job.
+func (c *Client) FineTune(id string) (FineTune, error) {
+	return makeJSONRequest[FineTune](c, http.MethodGet, "/fine-tunes"+id, nil)
+}
+
+// CancelFineTune immediately cancel a fine-tune job.
+func (c *Client) CancelFineTune(id string) (FineTune, error) {
+	return makeJSONRequest[FineTune](c, http.MethodPost, "/fine-tunes"+id+"/cancel", nil)
+}
+
+// FineTuneEvents get fine-grained status updates for a fine-tune job.
+func (c *Client) FineTuneEvents(id string) (FineTuneEventsResponse, error) {
+	return makeJSONRequest[FineTuneEventsResponse](c, http.MethodGet, "/fine-tunes"+id+"/events", nil)
 }
 
 func makeJSONRequest[T any](client *Client, method, path string, payload any) (T, error) {

@@ -23,6 +23,12 @@ type ModelResponse struct {
 	Parent     string           `json:"parent"`
 }
 
+type DeleteModelResponse struct {
+	ID      string `json:"id"`
+	Object  string `json:"object"`
+	Deleted bool   `json:"deleted"`
+}
+
 type CompletionResponse struct {
 	ID      string `json:"id"`
 	Object  string `json:"object"`
@@ -147,4 +153,14 @@ type FileResponse struct {
 	Purpose       string   `json:"purpose"`
 	Status        string   `json:"status"`
 	StatusDetails []string `json:"status_details"`
+}
+
+type FineTunesResponse struct {
+	Object string     `json:"object"`
+	Data   []FineTune `json:"data"`
+}
+
+type FineTuneEventsResponse struct {
+	Object string          `json:"object"`
+	Data   []FineTuneEvent `json:"data"`
 }

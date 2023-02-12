@@ -81,3 +81,18 @@ type UploadFileRequest struct {
 	File    formdata.File `form:"file"`
 	Purpose string        `form:"purpose"`
 }
+
+type FineTuneRequest struct {
+	TrainingFile                 string    `json:"training_file"`
+	ValidationFile               string    `json:"validation_file,omitempty"`
+	Model                        string    `json:"model,omitempty"`
+	NEpochs                      int       `json:"n_epochs,omitempty"`
+	BatchSize                    int       `json:"batch_size,omitempty"`
+	LearningRateMultiplier       float64   `json:"learning_rate_multiplier,omitempty"`
+	PromptLossWeight             float64   `json:"prompt_loss_weight,omitempty"`
+	ComputeClassificationMetrics bool      `json:"compute_classification_metrics,omitempty"`
+	ClassificationNClasses       int       `json:"classification_n_classes,omitempty"`
+	ClassificationPositiveClass  string    `json:"classification_positive_class,omitempty"`
+	ClassificationBetas          []float64 `json:"classification_betas,omitempty"`
+	Suffix                       string    `json:"suffix,omitempty"`
+}
