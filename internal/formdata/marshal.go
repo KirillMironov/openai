@@ -2,6 +2,7 @@ package formdata
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"mime/multipart"
@@ -13,11 +14,15 @@ import (
 
 const formTag = "form"
 
+// File represents a file to be marshaled into a multipart/form-data request body.
 type File interface {
 	Name() string
 	io.Reader
 }
 
+// Marshal encodes the given value into a multipart/form-data request body.
+// The value must be a struct or a pointer to a struct.
+// If the field implements the File interface, the field is marshaled as a file.
 func Marshal(value any) (data []byte, contentType string, err error) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -25,11 +30,20 @@ func Marshal(value any) (data []byte, contentType string, err error) {
 		}
 	}()
 
-	buf := new(bytes.Buffer)
-	writer := multipart.NewWriter(buf)
-
 	v := reflect.ValueOf(value)
 	t := reflect.TypeOf(value)
+
+	if t.Kind() == reflect.Ptr {
+		v = v.Elem()
+		t = t.Elem()
+	}
+
+	if t.Kind() != reflect.Struct {
+		return nil, "", errors.New("formdata: value must be a struct or a pointer to a struct")
+	}
+
+	buf := new(bytes.Buffer)
+	writer := multipart.NewWriter(buf)
 
 	for i := 0; i < v.NumField(); i++ {
 		field := v.Field(i)
