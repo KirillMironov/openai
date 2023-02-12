@@ -1,26 +1,8 @@
 package openai
 
 type ModelsResponse struct {
-	Object string `json:"object"`
-	Data   []struct {
-		ID         string           `json:"id"`
-		Object     string           `json:"object"`
-		Created    int              `json:"created"`
-		OwnedBy    string           `json:"owned_by"`
-		Permission []map[string]any `json:"permission"`
-		Root       string           `json:"root"`
-		Parent     string           `json:"parent"`
-	} `json:"data"`
-}
-
-type ModelResponse struct {
-	ID         string           `json:"id"`
-	Object     string           `json:"object"`
-	Created    int              `json:"created"`
-	OwnedBy    string           `json:"owned_by"`
-	Permission []map[string]any `json:"permission"`
-	Root       string           `json:"root"`
-	Parent     string           `json:"parent"`
+	Object string  `json:"object"`
+	Data   []Model `json:"data"`
 }
 
 type DeleteModelResponse struct {
@@ -115,44 +97,13 @@ type EmbeddingResponse struct {
 
 type FilesResponse struct {
 	Object string `json:"object"`
-	Data   []struct {
-		ID            string   `json:"id"`
-		Object        string   `json:"object"`
-		Bytes         int      `json:"bytes"`
-		CreatedAt     int      `json:"created_at"`
-		Filename      string   `json:"filename"`
-		Purpose       string   `json:"purpose"`
-		Status        string   `json:"status"`
-		StatusDetails []string `json:"status_details"`
-	} `json:"data"`
-}
-
-type UploadFileResponse struct {
-	ID            string   `json:"id"`
-	Object        string   `json:"object"`
-	Bytes         int      `json:"bytes"`
-	CreatedAt     int      `json:"created_at"`
-	Filename      string   `json:"filename"`
-	Purpose       string   `json:"purpose"`
-	Status        string   `json:"status"`
-	StatusDetails []string `json:"status_details"`
+	Data   []File `json:"data"`
 }
 
 type DeleteFileResponse struct {
 	ID      string `json:"id"`
 	Object  string `json:"object"`
 	Deleted bool   `json:"deleted"`
-}
-
-type FileResponse struct {
-	ID            string   `json:"id"`
-	Object        string   `json:"object"`
-	Bytes         int      `json:"bytes"`
-	CreatedAt     int      `json:"created_at"`
-	Filename      string   `json:"filename"`
-	Purpose       string   `json:"purpose"`
-	Status        string   `json:"status"`
-	StatusDetails []string `json:"status_details"`
 }
 
 type FineTunesResponse struct {

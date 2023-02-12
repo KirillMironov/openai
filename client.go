@@ -39,8 +39,8 @@ func (c *Client) Models() (ModelsResponse, error) {
 }
 
 // Model retrieves a model instance, providing basic information about the model such as the owner and permissioning.
-func (c *Client) Model(id string) (ModelResponse, error) {
-	return makeJSONRequest[ModelResponse](c, http.MethodGet, "/models/"+id, nil)
+func (c *Client) Model(id string) (Model, error) {
+	return makeJSONRequest[Model](c, http.MethodGet, "/models/"+id, nil)
 }
 
 // DeleteModel delete a fine-tuned model.
@@ -86,8 +86,8 @@ func (c *Client) Files() (FilesResponse, error) {
 
 // UploadFile upload a file that contains document(s) to be used across various endpoints/features.
 // Currently, the size of all the files uploaded by one organization can be up to 1 GB.
-func (c *Client) UploadFile(request UploadFileRequest) (UploadFileResponse, error) {
-	return makeFormDataRequest[UploadFileResponse](c, "/files", request)
+func (c *Client) UploadFile(request UploadFileRequest) (File, error) {
+	return makeFormDataRequest[File](c, "/files", request)
 }
 
 // DeleteFile deletes a file.
@@ -96,8 +96,8 @@ func (c *Client) DeleteFile(id string) (DeleteFileResponse, error) {
 }
 
 // File returns information about a specific file.
-func (c *Client) File(id string) (FileResponse, error) {
-	return makeJSONRequest[FileResponse](c, http.MethodGet, "/files/"+id, nil)
+func (c *Client) File(id string) (File, error) {
+	return makeJSONRequest[File](c, http.MethodGet, "/files/"+id, nil)
 }
 
 // FileContent returns the contents of the specified file.

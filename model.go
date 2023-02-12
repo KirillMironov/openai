@@ -1,12 +1,5 @@
 package openai
 
-type Engine struct {
-	ID      string `json:"id"`
-	Object  string `json:"object"`
-	Created int    `json:"created"`
-	Ready   bool   `json:"ready"`
-}
-
 type Model struct {
 	ID      string `json:"id"`
 	Object  string `json:"object"`
