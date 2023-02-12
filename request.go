@@ -78,6 +78,6 @@ type EmbeddingRequest struct {
 }
 
 type UploadFileRequest struct {
-	File    string `json:"file"`
-	Purpose string `json:"purpose"`
+	File    formdata.File `form:"file"`
+	Purpose string        `form:"purpose"`
 }

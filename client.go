@@ -81,7 +81,22 @@ func (c *Client) Files() (FilesResponse, error) {
 // UploadFile upload a file that contains document(s) to be used across various endpoints/features.
 // Currently, the size of all the files uploaded by one organization can be up to 1 GB.
 func (c *Client) UploadFile(request UploadFileRequest) (UploadFileResponse, error) {
-	return makeJSONRequest[UploadFileResponse](c, http.MethodPost, "/files", request)
+	return makeFormDataRequest[UploadFileResponse](c, "/files", request)
+}
+
+// DeleteFile deletes a file.
+func (c *Client) DeleteFile(id string) (DeleteFileResponse, error) {
+	return makeJSONRequest[DeleteFileResponse](c, http.MethodDelete, "/files/"+id, nil)
+}
+
+// File returns information about a specific file.
+func (c *Client) File(id string) (FileResponse, error) {
+	return makeJSONRequest[FileResponse](c, http.MethodGet, "/files/"+id, nil)
+}
+
+// FileContent returns the contents of the specified file.
+func (c *Client) FileContent(id string) (string, error) {
+	return makeJSONRequest[string](c, http.MethodGet, "/files/"+id+"/content", nil)
 }
 
 func makeJSONRequest[T any](client *Client, method, path string, payload any) (T, error) {
