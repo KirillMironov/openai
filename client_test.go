@@ -137,6 +137,24 @@ func TestClient_ImageVariation(t *testing.T) {
 	}
 }
 
+func TestClient_Embedding(t *testing.T) {
+	t.Parallel()
+
+	client := newClient(t)
+
+	embedding, err := client.Embedding(EmbeddingRequest{
+		Model: "text-embedding-ada-002",
+		Input: []string{"This is a test"},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(embedding.Data) != 1 {
+		t.Fatalf("expected 1 embedding, got %d", len(embedding.Data))
+	}
+}
+
 func newClient(t *testing.T) *Client {
 	t.Helper()
 
