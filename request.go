@@ -96,3 +96,8 @@ type FineTuneRequest struct {
 	ClassificationBetas          []float64 `json:"classification_betas,omitempty"`
 	Suffix                       string    `json:"suffix,omitempty"`
 }
+
+type ModerationRequest struct {
+	Input []string `json:"input"`
+	Model string   `json:"model,omitempty"`
+}

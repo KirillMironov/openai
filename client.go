@@ -130,6 +130,11 @@ func (c *Client) FineTuneEvents(id string) (FineTuneEventsResponse, error) {
 	return makeJSONRequest[FineTuneEventsResponse](c, http.MethodGet, "/fine-tunes"+id+"/events", nil)
 }
 
+// Moderation classifies if text violates OpenAI's Content Policy
+func (c *Client) Moderation(request ModerationRequest) (ModerationResponse, error) {
+	return makeJSONRequest[ModerationResponse](c, http.MethodPost, "/moderations", request)
+}
+
 func makeJSONRequest[T any](client *Client, method, path string, payload any) (T, error) {
 	var (
 		target T

@@ -164,3 +164,29 @@ type FineTuneEventsResponse struct {
 	Object string          `json:"object"`
 	Data   []FineTuneEvent `json:"data"`
 }
+
+type ModerationResponse struct {
+	ID      string `json:"id"`
+	Model   string `json:"model"`
+	Results []struct {
+		Flagged    bool `json:"flagged"`
+		Categories struct {
+			Hate            bool `json:"hate"`
+			HateThreatening bool `json:"hate/threatening"`
+			SelfHarm        bool `json:"self-harm"`
+			Sexual          bool `json:"sexual"`
+			SexualMinors    bool `json:"sexual/minors"`
+			Violence        bool `json:"violence"`
+			ViolenceGraphic bool `json:"violence/graphic"`
+		} `json:"categories"`
+		CategoryScores struct {
+			Hate            float64 `json:"hate"`
+			HateThreatening float64 `json:"hate/threatening"`
+			SelfHarm        float64 `json:"self-harm"`
+			Sexual          float64 `json:"sexual"`
+			SexualMinors    float64 `json:"sexual/minors"`
+			Violence        float64 `json:"violence"`
+			ViolenceGraphic float64 `json:"violence/graphic"`
+		} `json:"category_scores"`
+	} `json:"results"`
+}
