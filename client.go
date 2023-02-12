@@ -65,7 +65,7 @@ func (c *Client) ImageEdit(request ImageEditRequest) (ImageEditResponse, error) 
 
 // ImageVariation creates a variation of a given image.
 func (c *Client) ImageVariation(request ImageVariationRequest) (ImageVariationResponse, error) {
-	return makeJSONRequest[ImageVariationResponse](c, http.MethodPost, "/images/variations", request)
+	return makeFormDataRequest[ImageVariationResponse](c, "/images/variations", request)
 }
 
 // Embedding creates an embedding vector representing the input text.

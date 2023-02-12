@@ -117,6 +117,26 @@ func TestClient_ImageEdit(t *testing.T) {
 	}
 }
 
+func TestClient_ImageVariation(t *testing.T) {
+	t.Parallel()
+
+	client := newClient(t)
+
+	file := testutil.MustCreateImagePNG(t, 64)
+
+	image, err := client.ImageVariation(ImageVariationRequest{
+		Image: file,
+		Size:  ImageSize512x512,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(image.Data) != 1 {
+		t.Fatalf("expected 1 image, got %d", len(image.Data))
+	}
+}
+
 func newClient(t *testing.T) *Client {
 	t.Helper()
 
@@ -126,5 +146,5 @@ func newClient(t *testing.T) *Client {
 		t.Skip(`provide "OPENAI_API_KEY" environment variable to run this test`)
 	}
 
-	return NewClient(apiKey, WithTimeout(time.Second*30))
+	return NewClient(apiKey, WithTimeout(time.Minute))
 }

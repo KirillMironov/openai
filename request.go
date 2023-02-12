@@ -64,11 +64,11 @@ type ImageEditRequest struct {
 }
 
 type ImageVariationRequest struct {
-	Image          string              `json:"image"`
-	N              int                 `json:"n,omitempty"`
-	Size           ImageSize           `json:"size,omitempty"`
-	ResponseFormat ImageResponseFormat `json:"response_format,omitempty"`
-	User           string              `json:"user,omitempty"`
+	Image          formdata.File       `form:"image"`
+	N              int                 `form:"n,omitempty"`
+	Size           ImageSize           `form:"size,omitempty"`
+	ResponseFormat ImageResponseFormat `form:"response_format,omitempty"`
+	User           string              `form:"user,omitempty"`
 }
 
 type EmbeddingRequest struct {
