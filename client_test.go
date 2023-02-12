@@ -155,6 +155,21 @@ func TestClient_Embedding(t *testing.T) {
 	}
 }
 
+func TestClient_Files(t *testing.T) {
+	t.Parallel()
+
+	client := newClient(t)
+
+	files, err := client.Files()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if files.Object == "" {
+		t.Fatal("expected object to be not empty")
+	}
+}
+
 func newClient(t *testing.T) *Client {
 	t.Helper()
 
