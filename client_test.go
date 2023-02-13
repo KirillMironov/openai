@@ -1,6 +1,7 @@
 package openai
 
 import (
+	"context"
 	"os"
 	"testing"
 	"time"
@@ -13,7 +14,7 @@ func TestClient_Models(t *testing.T) {
 
 	client := newClient(t)
 
-	models, err := client.Models()
+	models, err := client.Models(context.Background())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -28,7 +29,7 @@ func TestClient_Model(t *testing.T) {
 
 	client := newClient(t)
 
-	model, err := client.Model("davinci")
+	model, err := client.Model(context.Background(), "davinci")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -43,7 +44,7 @@ func TestClient_Completion(t *testing.T) {
 
 	client := newClient(t)
 
-	completion, err := client.Completion(CompletionRequest{
+	completion, err := client.Completion(context.Background(), CompletionRequest{
 		Model:       "ada",
 		Prompt:      []string{"This is a test"},
 		MaxTokens:   5,
@@ -64,7 +65,7 @@ func TestClient_Edit(t *testing.T) {
 
 	client := newClient(t)
 
-	edit, err := client.Edit(EditRequest{
+	edit, err := client.Edit(context.Background(), EditRequest{
 		Model:       "text-davinci-edit-001",
 		Input:       "This is a test",
 		Instruction: "This is a test",
@@ -83,7 +84,7 @@ func TestClient_Image(t *testing.T) {
 
 	client := newClient(t)
 
-	image, err := client.Image(ImageRequest{
+	image, err := client.Image(context.Background(), ImageRequest{
 		Prompt: "This is a test",
 		Size:   ImageSize1024x1024,
 	})
@@ -103,7 +104,7 @@ func TestClient_ImageEdit(t *testing.T) {
 
 	file := testutil.MustCreateImagePNG(t, 64)
 
-	image, err := client.ImageEdit(ImageEditRequest{
+	image, err := client.ImageEdit(context.Background(), ImageEditRequest{
 		Image:  file,
 		Prompt: "Add a cat in a hat",
 		Size:   ImageSize256x256,
@@ -124,7 +125,7 @@ func TestClient_ImageVariation(t *testing.T) {
 
 	file := testutil.MustCreateImagePNG(t, 64)
 
-	image, err := client.ImageVariation(ImageVariationRequest{
+	image, err := client.ImageVariation(context.Background(), ImageVariationRequest{
 		Image: file,
 		Size:  ImageSize512x512,
 	})
@@ -142,7 +143,7 @@ func TestClient_Embedding(t *testing.T) {
 
 	client := newClient(t)
 
-	embedding, err := client.Embedding(EmbeddingRequest{
+	embedding, err := client.Embedding(context.Background(), EmbeddingRequest{
 		Model: "text-embedding-ada-002",
 		Input: []string{"This is a test"},
 	})
