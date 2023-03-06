@@ -116,6 +116,10 @@ type TranscriptionResponse struct {
 	Text string `json:"text"`
 }
 
+type TranslationResponse struct {
+	Text string `json:"text"`
+}
+
 type FilesResponse struct {
 	Object string `json:"object"`
 	Data   []File `json:"data"`

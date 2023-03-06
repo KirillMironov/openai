@@ -85,6 +85,11 @@ func (c *Client) Transcription(ctx context.Context, request TranscriptionRequest
 	return makeFormDataRequest[TranscriptionResponse](ctx, c, "/audio/transcriptions", request)
 }
 
+// Translation translates audio into English.
+func (c *Client) Translation(ctx context.Context, request TranslationRequest) (TranslationResponse, error) {
+	return makeFormDataRequest[TranslationResponse](ctx, c, "/audio/translations", request)
+}
+
 // Files returns a list of files that belong to the user's organization.
 func (c *Client) Files(ctx context.Context) (FilesResponse, error) {
 	return makeJSONRequest[FilesResponse](ctx, c, http.MethodGet, "/files", nil)

@@ -111,6 +111,24 @@ type TranscriptionRequest struct {
 	Language       string                      `json:"language,omitempty"`
 }
 
+type TranslationResponseFormat string
+
+const (
+	TranslationResponseFormatJSON        TranslationResponseFormat = "json"
+	TranslationResponseFormatText        TranslationResponseFormat = "text"
+	TranslationResponseFormatSRT         TranslationResponseFormat = "srt"
+	TranslationResponseFormatVerboseJSON TranslationResponseFormat = "verbose_json"
+	TranslationResponseFormatVTT         TranslationResponseFormat = "vtt"
+)
+
+type TranslationRequest struct {
+	File           formdata.File             `form:"file"`
+	Model          string                    `json:"model"`
+	Prompt         string                    `json:"prompt,omitempty"`
+	ResponseFormat TranslationResponseFormat `json:"response_format,omitempty"`
+	Temperature    float64                   `json:"temperature,omitempty"`
+}
+
 type UploadFileRequest struct {
 	File    formdata.File `form:"file"`
 	Purpose string        `form:"purpose"`
