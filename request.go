@@ -21,6 +21,21 @@ type CompletionRequest struct {
 	User             string         `json:"user,omitempty"`
 }
 
+type ChatCompletionRequest struct {
+	Model            string                         `json:"model"`
+	Messages         []ChatCompletionRequestMessage `json:"messages"`
+	Temperature      float64                        `json:"temperature,omitempty"`
+	TopP             float64                        `json:"top_p,omitempty"`
+	N                int                            `json:"n,omitempty"`
+	Stream           bool                           `json:"stream,omitempty"`
+	Stop             []string                       `json:"stop,omitempty"`
+	MaxTokens        int                            `json:"max_tokens,omitempty"`
+	PresencePenalty  float64                        `json:"presence_penalty,omitempty"`
+	FrequencyPenalty float64                        `json:"frequency_penalty,omitempty"`
+	LogitBias        map[string]int                 `json:"logit_bias,omitempty"`
+	User             string                         `json:"user,omitempty"`
+}
+
 type EditRequest struct {
 	Model       string  `json:"model"`
 	Input       string  `json:"input,omitempty"`
@@ -75,6 +90,43 @@ type EmbeddingRequest struct {
 	Model string   `json:"model"`
 	Input []string `json:"input"`
 	User  string   `json:"user,omitempty"`
+}
+
+type TranscriptionResponseFormat string
+
+const (
+	TranscriptionResponseFormatJSON        TranscriptionResponseFormat = "json"
+	TranscriptionResponseFormatText        TranscriptionResponseFormat = "text"
+	TranscriptionResponseFormatSRT         TranscriptionResponseFormat = "srt"
+	TranscriptionResponseFormatVerboseJSON TranscriptionResponseFormat = "verbose_json"
+	TranscriptionResponseFormatVTT         TranscriptionResponseFormat = "vtt"
+)
+
+type TranscriptionRequest struct {
+	File           formdata.File               `form:"file"`
+	Model          string                      `json:"model"`
+	Prompt         string                      `json:"prompt,omitempty"`
+	ResponseFormat TranscriptionResponseFormat `json:"response_format,omitempty"`
+	Temperature    float64                     `json:"temperature,omitempty"`
+	Language       string                      `json:"language,omitempty"`
+}
+
+type TranslationResponseFormat string
+
+const (
+	TranslationResponseFormatJSON        TranslationResponseFormat = "json"
+	TranslationResponseFormatText        TranslationResponseFormat = "text"
+	TranslationResponseFormatSRT         TranslationResponseFormat = "srt"
+	TranslationResponseFormatVerboseJSON TranslationResponseFormat = "verbose_json"
+	TranslationResponseFormatVTT         TranslationResponseFormat = "vtt"
+)
+
+type TranslationRequest struct {
+	File           formdata.File             `form:"file"`
+	Model          string                    `json:"model"`
+	Prompt         string                    `json:"prompt,omitempty"`
+	ResponseFormat TranslationResponseFormat `json:"response_format,omitempty"`
+	Temperature    float64                   `json:"temperature,omitempty"`
 }
 
 type UploadFileRequest struct {

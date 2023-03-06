@@ -39,6 +39,29 @@ func TestClient_Model(t *testing.T) {
 	}
 }
 
+func TestClient_ChatCompletion(t *testing.T) {
+	t.Parallel()
+
+	client := newClient(t)
+
+	chatCompletion, err := client.ChatCompletion(context.Background(), ChatCompletionRequest{
+		Model: "gpt-3.5-turbo",
+		Messages: []ChatCompletionRequestMessage{
+			{
+				Role:    ChatRoleUser,
+				Content: "This is a test",
+			},
+		},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(chatCompletion.Choices) != 1 {
+		t.Fatalf("expected 1 choice, got %d", len(chatCompletion.Choices))
+	}
+}
+
 func TestClient_Completion(t *testing.T) {
 	t.Parallel()
 

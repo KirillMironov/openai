@@ -7,6 +7,25 @@ type Model struct {
 	OwnedBy string `json:"owned_by"`
 }
 
+type ChatRole string
+
+const (
+	ChatRoleSystem    ChatRole = "system"
+	ChatRoleUser      ChatRole = "user"
+	ChatRoleAssistant ChatRole = "assistant"
+)
+
+type ChatCompletionRequestMessage struct {
+	Role    ChatRole `json:"role"`
+	Content string   `json:"content"`
+	Name    string   `json:"name,omitempty"`
+}
+
+type ChatCompletionResponseMessage struct {
+	Role    ChatRole `json:"role"`
+	Content string   `json:"content"`
+}
+
 type File struct {
 	ID            string         `json:"id"`
 	Object        string         `json:"object"`
