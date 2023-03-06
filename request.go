@@ -92,6 +92,25 @@ type EmbeddingRequest struct {
 	User  string   `json:"user,omitempty"`
 }
 
+type TranscriptionResponseFormat string
+
+const (
+	TranscriptionResponseFormatJSON        TranscriptionResponseFormat = "json"
+	TranscriptionResponseFormatText        TranscriptionResponseFormat = "text"
+	TranscriptionResponseFormatSRT         TranscriptionResponseFormat = "srt"
+	TranscriptionResponseFormatVerboseJSON TranscriptionResponseFormat = "verbose_json"
+	TranscriptionResponseFormatVTT         TranscriptionResponseFormat = "vtt"
+)
+
+type TranscriptionRequest struct {
+	File           formdata.File               `form:"file"`
+	Model          string                      `json:"model"`
+	Prompt         string                      `json:"prompt,omitempty"`
+	ResponseFormat TranscriptionResponseFormat `json:"response_format,omitempty"`
+	Temperature    float64                     `json:"temperature,omitempty"`
+	Language       string                      `json:"language,omitempty"`
+}
+
 type UploadFileRequest struct {
 	File    formdata.File `form:"file"`
 	Purpose string        `form:"purpose"`

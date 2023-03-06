@@ -80,6 +80,11 @@ func (c *Client) Embedding(ctx context.Context, request EmbeddingRequest) (Embed
 	return makeJSONRequest[EmbeddingResponse](ctx, c, http.MethodPost, "/embeddings", request)
 }
 
+// Transcription transcribes audio into the input language.
+func (c *Client) Transcription(ctx context.Context, request TranscriptionRequest) (TranscriptionResponse, error) {
+	return makeFormDataRequest[TranscriptionResponse](ctx, c, "/audio/transcriptions", request)
+}
+
 // Files returns a list of files that belong to the user's organization.
 func (c *Client) Files(ctx context.Context) (FilesResponse, error) {
 	return makeJSONRequest[FilesResponse](ctx, c, http.MethodGet, "/files", nil)
