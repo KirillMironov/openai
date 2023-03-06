@@ -21,6 +21,21 @@ type CompletionRequest struct {
 	User             string         `json:"user,omitempty"`
 }
 
+type ChatCompletionRequest struct {
+	Model            string                         `json:"model"`
+	Messages         []ChatCompletionRequestMessage `json:"messages"`
+	Temperature      float64                        `json:"temperature,omitempty"`
+	TopP             float64                        `json:"top_p,omitempty"`
+	N                int                            `json:"n,omitempty"`
+	Stream           bool                           `json:"stream,omitempty"`
+	Stop             []string                       `json:"stop,omitempty"`
+	MaxTokens        int                            `json:"max_tokens,omitempty"`
+	PresencePenalty  float64                        `json:"presence_penalty,omitempty"`
+	FrequencyPenalty float64                        `json:"frequency_penalty,omitempty"`
+	LogitBias        map[string]int                 `json:"logit_bias,omitempty"`
+	User             string                         `json:"user,omitempty"`
+}
+
 type EditRequest struct {
 	Model       string  `json:"model"`
 	Input       string  `json:"input,omitempty"`
